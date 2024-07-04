@@ -7,7 +7,7 @@ from main import BooksCollector
 # обязательно указывать префикс Test
 class TestBooksCollector:
 
-    # пример теста:
+    # 1) пример теста:
     # обязательно указывать префикс test_
     # дальше идет название метода, который тестируем add_new_book_
     # затем, что тестируем add_two_books - добавление двух книг
@@ -26,7 +26,7 @@ class TestBooksCollector:
     # напиши свои тесты ниже
     # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
 
-    #проверили что название книги больше 41 символа b lj,
+    # 2) проверили что название книги больше 41 символа и добавить не получилось
     def test_add_new_book_more_41_symbol(self):
         collector = BooksCollector()
         book = 'книга с очень длинным названием в 44 символа'
@@ -34,7 +34,7 @@ class TestBooksCollector:
         result = len(collector.get_books_genre()) > 41
         assert result == False
 
-    # проверили что у книги нет жанра
+    # 3) проверили что у книги нет жанра
     def test_set_book_genre_have_no_genre_true(self):
         collector = BooksCollector()
         # добавляем книгу без жанра
@@ -42,7 +42,7 @@ class TestBooksCollector:
         # проверяем что добавленная кника не имеет жанра
         assert collector.get_books_genre() not in collector.genre
 
-    # Жанр новой книги есть всписке
+    # 4) Жанр новой книги есть всписке
     @pytest.mark.parametrize('book, genre', [['Убойные каникулы', 'Ужасы']])
     def test_set_book_genre_have_genre(self, book, genre):
         collector = BooksCollector()
@@ -51,15 +51,15 @@ class TestBooksCollector:
         # проверяем что добавленная кника не имеет жанра
         assert collector.get_book_genre(book) in collector.genre
 
-    # получаем жанр книги по ее названию
+    # 5) получаем жанр книги по ее названию
     @pytest.mark.parametrize('book, genre', [['Луна 2112', 'Фантастика']])
-    def test_get_book_genre_exist_true(self, book, genre):
+    def test_get_book_genre_exist_in_list_true(self, book, genre):
         collector = BooksCollector()
         collector.add_new_book(book)
         collector.set_book_genre(book, genre)
         assert collector.get_book_genre(book) == genre
 
-    # список книг с определнынм жанром
+    # 6) список книг с определнынм жанром
     @pytest.mark.parametrize('book, genre', [['Лунтики', 'Мультфильмы']])
     def test_get_books_with_specific_genre_true(self, book, genre):
         collector = BooksCollector()
@@ -68,7 +68,7 @@ class TestBooksCollector:
         result = collector.get_books_with_specific_genre('Мультфильмы')
         assert len(result) == 1
 
-    # проверяем что в списке не пусто если добавили книгу
+    # 7) проверяем что в списке не пусто если добавили книгу
     @pytest.mark.parametrize('book, genre', [['Лунтики', 'Детективы']])
     def test_get_books_genre_not_empty(self, book, genre):
         collector = BooksCollector()
@@ -77,8 +77,8 @@ class TestBooksCollector:
         result = collector.get_books_genre()
         assert len(result) != 0
 
-    # добавили 2 книги с разными жанрами
-    # и проверили что одна из них подходит для детей
+    # 8) добавили 2 книги с разными жанрами
+    #    и проверили что одна из них подходит для детей
     def test_get_books_for_children_true(self):
         collector = BooksCollector()
         book1 = 'Приключения Тома Сойера'
@@ -94,7 +94,7 @@ class TestBooksCollector:
         expected_result = [book1]
         assert result == expected_result
 
-    # добавили книгу в избранное и убедились что она там есть
+    # 9) добавили книгу в избранное и убедились что она там есть
     def test_add_book_in_favorites_true(self):
         collector = BooksCollector()
         book = 'Приключения незнайки на луне'
@@ -102,7 +102,7 @@ class TestBooksCollector:
         collector.add_book_in_favorites(book)
         assert book in collector.get_list_of_favorites_books()
 
-    #сначала добавили книгу, потом удалили
+    # 10) сначала добавили книгу, потом удалили
     def test_delete_book_from_favorites_true(self):
         collector = BooksCollector()
         book = 'Приключения незнайки на луне2'
@@ -110,7 +110,7 @@ class TestBooksCollector:
         collector.delete_book_from_favorites(book)
         assert book not in collector.get_list_of_favorites_books()
 
-    #добавляем книгу и
+    # 11) добавляем книгу в избранное и проверили что она там
     def test_get_list_of_favorites_books_true(self):
         collector = BooksCollector()
         book = 'Приключения незнайки на луне'
