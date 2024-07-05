@@ -31,7 +31,7 @@ class TestBooksCollector:
         collector = BooksCollector()
         book = 'книга с очень длинным названием в 44 символа'
         collector.add_new_book(book)
-        result = len(collector.get_books_genre()) > 41
+        result = len(collector.get_books_genre()) == 0
         assert result == False
 
     # 3) проверили что у книги нет жанра
@@ -40,7 +40,7 @@ class TestBooksCollector:
         # добавляем книгу без жанра
         collector.add_new_book('Предубеждение и зомби')
         # проверяем что добавленная кника не имеет жанра
-        assert collector.get_books_genre() not in collector.genre
+        assert collector.get_books_genre() is not ''
 
     # 4) Жанр новой книги есть всписке
     @pytest.mark.parametrize('book, genre', [['Убойные каникулы', 'Ужасы']])
@@ -116,4 +116,4 @@ class TestBooksCollector:
         book = 'Приключения незнайки на луне'
         collector.add_new_book(book)
         collector.add_book_in_favorites(book)
-        assert book in collector.get_list_of_favorites_books()
+        assert [book] == collector.get_list_of_favorites_books()
