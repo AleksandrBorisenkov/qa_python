@@ -100,7 +100,7 @@ class TestBooksCollector:
         book = 'Приключения незнайки на луне'
         collector.add_new_book(book)
         collector.add_book_in_favorites(book)
-        assert book in collector.get_list_of_favorites_books()
+        assert book in collector.favorites
 
     # 10) сначала добавили книгу, потом удалили
     def test_delete_book_from_favorites_true(self):
